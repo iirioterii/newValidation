@@ -1,0 +1,20 @@
+
+{
+  "name": "rioter/validation",
+  "description": "",
+  "keywords": ["iirioterii", "validation", "validator"],
+  "type": "framework component",
+  "authors": [
+    {
+      "name": "iirioterii"
+    }
+  ],
+  "require": {
+    "php": ">=5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Rioter\\Validation\\": "src/"
+    }
+  }
+}
