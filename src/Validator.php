@@ -15,11 +15,6 @@ class Validator
     // Данные для валидрования
     protected $data;
 
-    public function __construct()
-    {
-
-    }
-
     // Для проверяемого поля задаем алиас;
     public function setAlias($fieldName, $alias)
     {
@@ -36,11 +31,10 @@ class Validator
     // Добавить правило для поля
     public function addRule($fieldName, $rule)
     {
-        if(!isset($this->rules[$fieldName])) {
+        if(!isset($this->rules[$fieldName]))
             $this->rules[$fieldName] = [];
             $this->rules[$fieldName][] = $rule;
             return $this;
-        }
     }
 
     // Получаем правила
