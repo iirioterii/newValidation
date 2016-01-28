@@ -2,8 +2,8 @@
 {
   "name": "rioter/validation",
   "description": "",
-  "keywords": ["iirioterii", "validation", "validator"],
-  "type": "framework component",
+  "keywords": ["iirioterii", "validator"],
+  "type": "A team framework component",
   "authors": [
     {
       "name": "iirioterii"
