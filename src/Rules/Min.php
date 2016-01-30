@@ -14,12 +14,12 @@ class Min implements Ruleable
 
     public function validate($fieldName, $val, $validator)
     {
-     return strlen($val) >= $this->length;
+        return strlen($val) >= $this->length;
     }
 
     public function getErrorMessage($fieldName, $val, $validator)
     {
-    return $validator->getAlias($fieldName) . ' должен быть как минимум ' . $this->length . ' символов';
+        return $validator->getAlias($fieldName) . ' должен быть как минимум ' . $this->length . ' символов';
     }
 
 }
