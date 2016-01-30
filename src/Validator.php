@@ -5,6 +5,8 @@ namespace Rioter\Validation;
 
 class Validator
 {
+    // Данные для валидрования
+    protected $data;
 
     // Алиасы
     protected $aliases = [];
@@ -12,8 +14,8 @@ class Validator
     // Правила
     protected $rules = [];
 
-    // Данные для валидрования
-    protected $data;
+    // ошибки
+    protected $errors = [];
 
     // Для проверяемого поля задаем алиас;
     public function setAlias($fieldName, $alias)
@@ -34,7 +36,7 @@ class Validator
         if(!isset($this->rules[$fieldName]))
             $this->rules[$fieldName] = [];
             $this->rules[$fieldName][] = $rule;
-            return $this;
+        return $this;
     }
 
     // Получаем правила
@@ -48,6 +50,7 @@ class Validator
     {
         $this->data = $data;
         $this->errors = $this->exeRules();
+
         return empty($this->errors);
     }
 
@@ -59,7 +62,8 @@ class Validator
     }
 
     // Получить ошибки
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
@@ -67,11 +71,10 @@ class Validator
     public function exeRules()
     {
         if(empty($this->rules)) return [];
-        $errors = [];
 
+        $errors = [];
         foreach($this->rules as $fieldName => $rules) {
-            list($result, $error) = $this->exeFieldNameRules($fieldName, $rules);
-            if($result === false) $errors[$fieldName] = $error;
+            $errors[$fieldName] = $this->exeFieldNameRules($fieldName, $rules);
         }
         return $errors;
     }
@@ -79,13 +82,17 @@ class Validator
     // Правила для поля
     public function exeFieldNameRules($fieldName, array $rules)
     {
+        $err = [];
         $val = isset($this->data[$fieldName]) ? $this->data[$fieldName] : 0;
 
         foreach($rules as $rule) {
             list($result, $error) = $this->exeRule($fieldName, $val, $rule);
-            if($result === false) return array(false, $error);
+            if($result === false){
+                array_push($err, $error);
+            }
+
         }
-        return [true, null];
+        return $err;
     }
 
     // Выполняем одно правило для поля
@@ -100,7 +107,4 @@ class Validator
         }
     }
 
-//    public  function __toString()
-//    {
-//    }
 }
