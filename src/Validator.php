@@ -83,7 +83,7 @@ class Validator
     public function exeFieldNameRules($fieldName, array $rules)
     {
         $err = [];
-        $val = isset($this->data[$fieldName]) ? $this->data[$fieldName] : 0;
+        $val = isset($this->data[$fieldName]) ? $this->data[$fieldName] : null;
 
         foreach($rules as $rule) {
             list($result, $error) = $this->exeRule($fieldName, $val, $rule);

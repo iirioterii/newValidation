@@ -21,3 +21,4 @@ $v
 
 $v->isValid($_REQUEST);
 print_r($v->getErrors());
+print_r($v->getData());
