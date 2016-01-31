@@ -9,6 +9,12 @@
       "name": "iirioterii"
     }
   ],
+  "require-dev": {
+    "behat/behat": "~2.5"
+  },
+  "config": {
+    "bin-dir": "bin/"
+  },
   "require": {
     "php": ">=5.5"
   },
