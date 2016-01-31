@@ -5,7 +5,7 @@ use Rioter\Validation\Rules;
 
 require_once 'vendor/autoload.php';
 
-$_REQUEST = ['id'=>'213', 'name' => 'Алексей', 'surname' => '333'];
+$_REQUEST = ['id'=>'213', 'name' => 'Алексей', 'surname' => '3'];
 
 $v = new Validator();
 $v

@@ -41,6 +41,7 @@ class Validator
 
     // Получаем правила
     public function getRules()
+
     {
         return $this->rules;
     }
@@ -74,7 +75,9 @@ class Validator
 
         $errors = [];
         foreach($this->rules as $fieldName => $rules) {
-            $errors[$fieldName] = $this->exeFieldNameRules($fieldName, $rules);
+            if (!empty($this->exeFieldNameRules($fieldName, $rules))) {
+                $errors[$fieldName] = $this->exeFieldNameRules($fieldName, $rules);
+            }
         }
         return $errors;
     }
@@ -88,7 +91,7 @@ class Validator
         foreach($rules as $rule) {
             list($result, $error) = $this->exeRule($fieldName, $val, $rule);
             if($result === false){
-                array_push($err, $error);
+                $err[]=$error;
             }
 
         }
