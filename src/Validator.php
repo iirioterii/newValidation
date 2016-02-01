@@ -13,7 +13,7 @@ class Validator
     // Правила
     protected $rules = [];
 
-    // ошибки
+    // Ошибки
     protected $errors = [];
 
     // Для проверяемого поля задаем алиас;

@@ -2,7 +2,7 @@
 {
   "name": "rioter/validation",
   "description": "",
-  "keywords": ["iirioterii", "validator"],
+  "keywords": ["iirioterii", "validation"],
   "type": "A team framework component",
   "authors": [
     {
@@ -10,11 +10,7 @@
     }
   ],
   "require-dev": {
-    "behat/behat": "~2.5",
     "egulias/email-validator": "~1.2"
-  },
-  "config": {
-    "bin-dir": "bin/"
   },
   "require": {
     "php": ">=5.5"
