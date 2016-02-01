@@ -1,11 +1,12 @@
 <?php
 
-
 namespace Rioter\Validation\Rules;
 
+use Rioter\Validation\Interfaces\Ruleable;
 
 class Length implements Ruleable
 {
+
     protected $length = 0;
 
     public  function __construct($length)
@@ -23,4 +24,5 @@ class Length implements Ruleable
     {
         return $validator->getAlias($fieldName) . ' должен быть ' . $this->length . ' символов в длину';
     }
+
 }

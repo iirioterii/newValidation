@@ -2,7 +2,6 @@
 
 namespace Rioter\Validation;
 
-
 class Validator
 {
     // Данные для валидрования
@@ -47,12 +46,15 @@ class Validator
     }
 
     // Валидация обьекта
-    public function isValid(array $data)
+    public function isValid($data)
     {
-        $this->data = $data;
-        $this->errors = $this->exeRules();
+        if(is_array($data)) {
+            $this->data = $data;
+            $this->errors = $this->exeRules();
+            return empty($this->errors);
+        }
 
-        return empty($this->errors);
+
     }
 
     // Получить данные
@@ -85,17 +87,17 @@ class Validator
     // Правила для поля
     public function exeFieldNameRules($fieldName, array $rules)
     {
-        $err = [];
+        $errors = [];
         $val = isset($this->data[$fieldName]) ? $this->data[$fieldName] : null;
 
         foreach($rules as $rule) {
             list($result, $error) = $this->exeRule($fieldName, $val, $rule);
             if($result === false){
-                $err[]=$error;
+                $errors[]=$error;
             }
 
         }
-        return $err;
+        return $errors;
     }
 
     // Выполняем одно правило для поля
@@ -111,3 +113,4 @@ class Validator
     }
 
 }
+

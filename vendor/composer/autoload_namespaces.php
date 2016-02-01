@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Egulias\\' => array($vendorDir . '/egulias/email-validator/src'),
+    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Behat\\Gherkin' => array($vendorDir . '/behat/gherkin/src'),
     'Behat\\Behat' => array($vendorDir . '/behat/behat/src'),
 );

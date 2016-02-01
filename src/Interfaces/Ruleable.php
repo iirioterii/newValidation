@@ -1,6 +1,6 @@
 <?php
 
-namespace Rioter\Validation\Rules;
+namespace Rioter\Validation\Interfaces;
 
 
 interface Ruleable
