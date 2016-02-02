@@ -5,9 +5,19 @@ namespace Rioter\Validation\Interfaces;
 
 interface Ruleable
 {
-    // Должен возвращать true в случае, если валидация пройдена, false в обратном
+    /**
+     * @param $fieldName
+     * @param $val
+     * @param $validator
+     * @return mixed
+     */
     public function validate($fieldName, $val, $validator);
 
-    // Долен вовзращать строку
+    /**
+     * @param $fieldName
+     * @param $val
+     * @param $validator
+     * @return mixed
+     */
     public function getErrorMessage($fieldName, $val, $validator);
 }

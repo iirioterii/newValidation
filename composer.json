@@ -13,7 +13,8 @@
     "egulias/email-validator": "~1.2"
   },
   "require": {
-    "php": ">=5.5"
+    "php": ">=5.5",
+    "phpunit/phpunit": "^4.8"
   },
   "autoload": {
     "psr-4": {

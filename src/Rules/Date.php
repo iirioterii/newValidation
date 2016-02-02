@@ -25,8 +25,17 @@ class Date implements Ruleable
             return false !== strtotime($val);
         }
         $exceptionalFormats = [
-            'c' => 'Y-m-d\TH:i:sP',
-            'r' => 'D, d M Y H:i:s O',
+            'ATOM' => 'Y-m-d\TH:i:sP',
+            'RSS' => 'D, d M Y H:i:s O',
+            'W3C' => 'Y-m-d\TH:i:sP',
+            'ISO8601' => 'Y-m-d\TH:i:sO',
+            'RFC822' => 'D, d M y H:i:s O',
+            'RFC850' => 'l, d-M-y H:i:s T',
+            'RFC1036' => 'D, d M y H:i:s O',
+            'RFC1123' => 'D, d M Y H:i:s O',
+            'RFC2822' => 'D, d M Y H:i:s O',
+            'RFC3339' => 'Y-m-d\TH:i:sP',
+
         ];
         if (in_array($this->format, array_keys($exceptionalFormats))) {
             $this->format = $exceptionalFormats[ $this->format ];
