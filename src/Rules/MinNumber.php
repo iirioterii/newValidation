@@ -2,6 +2,7 @@
 
 namespace Rioter\Validation\Rules;
 
+
 use Rioter\Validation\Interfaces\Ruleable;
 
 class MinNumber implements Ruleable
@@ -14,7 +15,7 @@ class MinNumber implements Ruleable
         $this->min = (int) $min;
     }
 
-    public function validate($fieldТфьу, $val, $validator)
+    public function validate($fieldName, $val, $validator)
     {
         $val = (int) $val;
         return $val >= $this->min;

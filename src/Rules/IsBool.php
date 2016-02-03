@@ -2,6 +2,7 @@
 
 namespace Rioter\Validation\Rules;
 
+
 use Rioter\Validation\Interfaces\Ruleable;
 
 class IsBool implements Ruleable
