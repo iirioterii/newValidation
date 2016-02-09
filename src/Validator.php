@@ -24,6 +24,11 @@ class Validator
      */
     protected $errors = [];
 
+    /**
+     * @var array
+     */
+    protected $functions = [];
+
 
     /**
      * @param $fieldName
@@ -43,6 +48,18 @@ class Validator
     public function getAlias($fieldName)
     {
         return isset($this->aliases[$fieldName]) ? $this->aliases[$fieldName] : $fieldName;
+    }
+
+    /**
+     * @param $fieldName
+     * @param $function
+     * @return $this
+     */
+    public function addFunc($fieldName, $function) {
+        if(!is_callable($function)) return $this;
+        if(!isset($this->functions[$fieldName])) $this->functions[$fieldName] = array();
+        $this->functions[$fieldName][] = $function;
+        return $this;
     }
 
     /**
@@ -73,13 +90,30 @@ class Validator
      */
     public function isValid($data)
     {
-        if(is_array($data)) {
-            $this->data = $data;
+
+       if(is_array($data)) {
+            $this->data = $this->applyFunctions($data);
             $this->errors = $this->exeRules();
         }
         return empty($this->errors);
 
+    }
 
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function applyFunctions(array $data) {
+        if(empty($this->functions)) return $data;
+        foreach($this->functions as $fieldName => $functions) {
+            if(!isset($data[$fieldName])) continue;
+            $value = $data[$fieldName];
+            foreach($functions as $function) {
+                $value = call_user_func($function, $value);
+            }
+            $data[$fieldName] = $value;
+        }
+        return $data;
     }
 
     /**
