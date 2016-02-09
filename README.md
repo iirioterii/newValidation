@@ -34,20 +34,36 @@ $v = new Validator();
 
 For example you have $_POST data
 ```php
-$_POST = ['id'=>'12', 'name' => 'Alexandr'];
+$_POST = ['id'=>'12', 'name' => ' Alexandr'];
 ```
 
-Add aliases and rules
+Add aliases
 
 ```php
 $v
     ->setAlias('name', 'Username')
     ->setAlias('id', 'Id пользователя')
+;
+```
+
+Php standart functions
+
+```php
+$v
+    ->addFunc('name', 'trim')
+;
+```
+
+Add rules
+
+```php
+$v
     ->addRule('id', new Rules\IsNumeric())
     ->addRule('id', new Rules\IsBool())
     ->addRule('name', new Rules\MaxLength(4))
 ;
 ```
+
 isValid return true if validation is passed
 and return false if validation is not passed
 ```php
