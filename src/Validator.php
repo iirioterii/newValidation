@@ -5,32 +5,44 @@ namespace Rioter\Validation;
 class Validator
 {
     /**
+     * Data from form
+     *
      * @var array
      */
     protected $data = [];
 
     /**
+     * Aliases of data`s keys
+     *
      * @var array
      */
     protected $aliases = [];
 
     /**
+     * Rules
+     *
      * @var array
      */
     protected $rules = [];
 
     /**
+     * Errors
+     *
      * @var array
      */
     protected $errors = [];
 
     /**
+     * Functions for filtering
+     *
      * @var array
      */
     protected $functions = [];
 
 
     /**
+     * Set alias of data`s key
+     *
      * @param $fieldName
      * @param $alias
      * @return $this
@@ -42,6 +54,8 @@ class Validator
     }
 
     /**
+     * Get alias, if alias is not isset, use fieldname as alias
+     *
      * @param $fieldName
      * @return mixed
      */
@@ -51,18 +65,22 @@ class Validator
     }
 
     /**
+     * Add functions for filtering
+     *
      * @param $fieldName
      * @param $function
      * @return $this
      */
     public function addFunc($fieldName, $function) {
         if(!is_callable($function)) return $this;
-        if(!isset($this->functions[$fieldName])) $this->functions[$fieldName] = array();
+        if(!isset($this->functions[$fieldName])) $this->functions[$fieldName] = [];
         $this->functions[$fieldName][] = $function;
         return $this;
     }
 
     /**
+     * Add rule for fieldName
+     *
      * @param $fieldName
      * @param $rule
      * @return $this
@@ -76,6 +94,8 @@ class Validator
     }
 
     /**
+     * Get all rules
+     *
      * @return array
      */
     public function getRules()
@@ -85,6 +105,8 @@ class Validator
     }
 
     /**
+     * Check data for validity
+     *
      * @param $data
      * @return bool
      */
@@ -100,6 +122,8 @@ class Validator
     }
 
     /**
+     * Apply all functions for filtering
+     *
      * @param array $data
      * @return array
      */
@@ -117,6 +141,8 @@ class Validator
     }
 
     /**
+     * Get all data
+     *
      * @param null $fieldName
      * @param null $default
      * @return null
@@ -128,6 +154,8 @@ class Validator
     }
 
     /**
+     * Get all errors
+     *
      * @return array
      */
     public function getErrors()
@@ -136,6 +164,8 @@ class Validator
     }
 
     /**
+     * Execute rules
+     *
      * @return array
      */
     public function exeRules()
@@ -152,6 +182,8 @@ class Validator
     }
 
     /**
+     * Execute rules for a given fieldName
+     *
      * @param $fieldName
      * @param array $rules
      * @return array
@@ -159,19 +191,20 @@ class Validator
     public function exeFieldNameRules($fieldName, array $rules)
     {
         $errors = [];
-        $val = isset($this->data[$fieldName]) ? $this->data[$fieldName] : null;
+        $val = $this->data[$fieldName];
 
         foreach($rules as $rule) {
             list($result, $error) = $this->exeRule($fieldName, $val, $rule);
             if($result === false){
                 $errors[]=$error;
             }
-
         }
         return $errors;
     }
 
     /**
+     * Execute a single rule against fieldName
+     *
      * @param $fieldName
      * @param $val
      * @param $rule
