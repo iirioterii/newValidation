@@ -3,9 +3,7 @@
 namespace Rioter\Validation\Rules;
 
 
-use Rioter\Validation\Interfaces\Ruleable;
-
-class MaxLength implements Ruleable
+class MaxLength extends AbstractRule
 {
 
     protected $length = 0;
@@ -13,16 +11,12 @@ class MaxLength implements Ruleable
     public function __construct($length)
     {
         $this->length = (int) $length;
+        $this->errorMessage = ' должен быть не более ' . $this->length . ' символов';
     }
 
     public function validate($fieldName, $val, $validator)
     {
         return strlen($val) <= $this->length;
-    }
-
-    public function getErrorMessage($fieldName, $val, $validator)
-    {
-        return $validator->getAlias($fieldName) . ' должен быть не более ' . $this->length . ' символов';
     }
 
 }

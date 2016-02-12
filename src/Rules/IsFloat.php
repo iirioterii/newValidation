@@ -3,19 +3,13 @@
 namespace Rioter\Validation\Rules;
 
 
-use Rioter\Validation\Interfaces\Ruleable;
-
-class IsFloat implements Ruleable
+class IsFloat extends AbstractRule
 {
+    public $errorMessage = ' должен быть числом с плавающей точкой';
 
     public function validate($fieldName, $val, $validator)
     {
         return is_float($val);
-    }
-
-    public function getErrorMessage($fieldName, $val, $validator)
-    {
-        return $validator->getAlias($fieldName) . ' должен быть числом с плавающей точкой';
     }
 
 }

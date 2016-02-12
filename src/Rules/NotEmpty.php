@@ -3,10 +3,10 @@
 namespace Rioter\Validation\Rules;
 
 
-use Rioter\Validation\Interfaces\Ruleable;
-
-class NotEmpty implements Ruleable
+class NotEmpty extends AbstractRule
 {
+
+    public $errorMessage = " должно быть не пустое";
 
     public function validate($fieldName, $val, $validator)
     {
@@ -14,11 +14,6 @@ class NotEmpty implements Ruleable
             trim($val);
         }
         return (!empty($val));
-    }
-
-    public function getErrorMessage($fieldName, $val, $validator)
-    {
-        return $validator->getAlias($fieldName) . " должно быть не пустое";
     }
 
 }

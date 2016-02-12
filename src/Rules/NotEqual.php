@@ -3,9 +3,7 @@
 namespace Rioter\Validation\Rules;
 
 
-use Rioter\Validation\Interfaces\Ruleable;
-
-class NotEqual implements Ruleable
+class NotEqual extends AbstractRule
 {
 
     protected $equalValue;
@@ -13,17 +11,13 @@ class NotEqual implements Ruleable
     public  function __construct($equalValue)
     {
         $this->equalValue = $equalValue;
+        $this->errorMessage = " не должно быть равно {$this->equalValue}";
 
     }
 
     public function validate($fieldName, $val, $validator)
     {
         return ($val !== $this->equalValue);
-    }
-
-    public function getErrorMessage($fieldName, $val, $validator)
-    {
-        return $validator->getAlias($fieldName) . " не должно быть равно {$this->equalValue}";
     }
 
 }

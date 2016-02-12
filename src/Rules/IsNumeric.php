@@ -3,19 +3,14 @@
 namespace Rioter\Validation\Rules;
 
 
-use Rioter\Validation\Interfaces\Ruleable;
-
-class IsNumeric implements Ruleable
+class IsNumeric extends AbstractRule
 {
+
+    public $errorMessage = ' должен быть целым числом';
 
     public function validate($fieldName, $val, $validator)
     {
         return is_numeric($val);
-    }
-
-    public function getErrorMessage($fieldName, $val, $validator)
-    {
-        return $validator->getAlias($fieldName) . ' должно быть числом';
     }
 
 }

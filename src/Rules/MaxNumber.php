@@ -3,9 +3,7 @@
 namespace Rioter\Validation\Rules;
 
 
-use Rioter\Validation\Interfaces\Ruleable;
-
-class MaxNumber implements Ruleable
+class MaxNumber extends AbstractRule
 {
 
     protected $max = 0;
@@ -13,17 +11,13 @@ class MaxNumber implements Ruleable
     public function __construct($max)
     {
         $this->max = (int) $max;
+        $this->errorMessage =" должен быть меньше или равен {$this->max}";
     }
 
     public function validate($fieldName, $val, $validator)
     {
         $val = (int) $val;
         return $val <= $this->max;
-    }
-
-    public function getErrorMessage($fieldName, $val, $validator)
-    {
-        return $validator->getAlias($fieldName) . " должен быть меньше или равен {$this->max}";
     }
 
 }

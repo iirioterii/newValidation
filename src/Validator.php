@@ -127,7 +127,7 @@ class Validator
      * @param array $data
      * @return array
      */
-    protected function applyFunctions(array $data) {
+    private function applyFunctions(array $data) {
         if(empty($this->functions)) return $data;
         foreach($this->functions as $fieldName => $functions) {
             if(!isset($data[$fieldName])) continue;
@@ -168,7 +168,7 @@ class Validator
      *
      * @return array
      */
-    public function exeRules()
+    private function exeRules()
     {
         if(empty($this->rules)) return [];
 
@@ -188,7 +188,7 @@ class Validator
      * @param array $rules
      * @return array
      */
-    public function exeFieldNameRules($fieldName, array $rules)
+    private function exeFieldNameRules($fieldName, array $rules)
     {
         $errors = [];
         $val = $this->data[$fieldName];
@@ -210,7 +210,7 @@ class Validator
      * @param $rule
      * @return array
      */
-    public function exeRule($fieldName, $val, $rule)
+    private function exeRule($fieldName, $val, $rule)
     {
         $result = $rule->validate($fieldName, $val, $this);
         if($result) {

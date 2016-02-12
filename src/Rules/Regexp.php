@@ -3,9 +3,7 @@
 namespace Rioter\Validation\Rules;
 
 
-use Rioter\Validation\Interfaces\Ruleable;
-
-class Regexp implements Ruleable
+class Regexp extends AbstractRule
 {
 
     protected $regex;
@@ -13,16 +11,12 @@ class Regexp implements Ruleable
     public function __construct($regex)
     {
         $this->regex = $regex;
+        $this->errorMessage = " несовпадает с паттерном {$this->regex}";
     }
 
     public function validate($fieldName, $val, $validator)
     {
         return (bool) preg_match($this->regex, $val);
-    }
-
-    public function getErrorMessage($fieldName, $val, $validator)
-    {
-        return $validator->getAlias($fieldName) . ' несовпадает с паттерном';
     }
 
 }
