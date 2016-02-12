@@ -1,24 +1,18 @@
 <?php
 
-namespace Rioter\Validation\Error;
+namespace Rioter\Validation\Helpers;
 
 
-class ErrorsHelper
+trait ErrorsHelper
 {
-    public function checkErrors()
+
+    public function outputErrors(array $err)
     {
-
+        foreach($err as $fieldName => $errors) {
+            foreach($errors as $error){
+                echo $error . '<br>';
+            }
+        }
     }
-
-    public function outputErrors()
-    {
-
-    }
-
-    public function gerErrors()
-    {
-
-    }
-
 
 }

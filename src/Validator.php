@@ -2,8 +2,12 @@
 
 namespace Rioter\Validation;
 
+
+use Rioter\Validation\Helpers\ErrorsHelper;
+
 class Validator
 {
+    use ErrorsHelper;
     /**
      * Data from form
      *
@@ -88,7 +92,7 @@ class Validator
     public function addRule($fieldName, $rule)
     {
         if(!isset($this->rules[$fieldName]))
-            $this->rules[$fieldName] = [];
+           $this->rules[$fieldName] = [];
             $this->rules[$fieldName][] = $rule;
         return $this;
     }
