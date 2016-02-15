@@ -6,8 +6,17 @@ namespace Rioter\Validation\Rules;
 class Negative extends AbstractRule
 {
 
-    public $errorMessage = " должно быть отрицательным числом";
+    /**
+     * @var string
+     */
+    public $errorMessage = " must be positive";
 
+    /**
+     * @param $fieldName
+     * @param $val
+     * @param $validator
+     * @return bool
+     */
     public function validate($fieldName, $val, $validator)
     {
         return ($val < 0);

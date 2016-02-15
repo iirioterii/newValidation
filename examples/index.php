@@ -4,11 +4,16 @@
 use Rioter\Validation\Validator;
 use Rioter\Validation\Rules;
 
-require_once 'vendor/autoload.php';
-ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors',true);
+ini_set('html_errors',true);
+ini_set('error_reporting',E_ALL ^ E_NOTICE);
 
-$_POST = ['id'=>'fg', 'name' => '12', 'surname' => ' Vasya', 'test' => 'kd'];
+require_once '../vendor/autoload.php';
 
+$_POST = ['id'=>1, 'name' => '12', 'surname' => ' Vasya',
+    'test' => 'kd', 'email' => 'iirioterii@gmail.com', 'date' => '1958'];
+$arr =array();
 
 $v = new Validator();
 $v
@@ -23,13 +28,16 @@ $v
     ->addFunc('surname', 'strtolower')
     ->addFunc('surname', 'trim')
 
-    ->addRule('test', new Rules\IsNumeric())
-;
+    ->setAlias('date', 'Date')
 
+    ->addRule('test', new Rules\IsNumeric())
+    ->addRule('email', new Rules\Email())
+    ->addRule('date', new Rules\Date('Y'))
+;
 
  if($v->isValid($_POST)){
      print_r( $v->getData());
  } else {
-     var_dump( $v->getErrors());
+     $v->getErrorsList();
  }
 

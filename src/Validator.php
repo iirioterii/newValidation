@@ -3,11 +3,9 @@
 namespace Rioter\Validation;
 
 
-use Rioter\Validation\Helpers\ErrorsHelper;
-
 class Validator
 {
-    use ErrorsHelper;
+
     /**
      * Data from form
      *
@@ -114,13 +112,11 @@ class Validator
      * @param $data
      * @return bool
      */
-    public function isValid($data)
+    public function isValid(array $data)
     {
 
-       if(is_array($data)) {
-            $this->data = $this->applyFunctions($data);
-            $this->errors = $this->exeRules();
-        }
+        $this->data = $this->applyFunctions($data);
+        $this->errors = $this->exeRules();
         return empty($this->errors);
 
     }
@@ -165,6 +161,20 @@ class Validator
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    /**
+     * Get pretty view of errors
+     */
+    public function getErrorsList()
+    {
+        echo '<ul>';
+        foreach($this->errors as $fieldName => $errorsArray) {
+            foreach($errorsArray as $error){
+                echo '<li>' . $error  . ';</li>';
+            }
+        }
+        echo '</ul>';
     }
 
     /**

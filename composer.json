@@ -10,15 +10,18 @@
     }
   ],
   "require-dev": {
-    "egulias/email-validator": "~1.2"
+    "phpunit/phpunit": ">=4.8"
   },
   "require": {
     "php": ">=5.5",
-    "phpunit/phpunit": ">=4.8"
+    "egulias/email-validator": "~1.2"
   },
   "autoload": {
     "psr-4": {
       "Rioter\\Validation\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": { "Rioter\\Validation\\": "tests/" }
   }
 }

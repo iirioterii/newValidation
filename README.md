@@ -108,6 +108,7 @@ Array
 * **Positive**
 * **Negative** 
 * **NotEmpty** 
+* **Equal**
 * **NotEqual**
 * **Matches** 
 * **Regexp** 

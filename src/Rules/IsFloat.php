@@ -5,8 +5,18 @@ namespace Rioter\Validation\Rules;
 
 class IsFloat extends AbstractRule
 {
-    public $errorMessage = ' должен быть числом с плавающей точкой';
 
+    /**
+     * @var string
+     */
+    public $errorMessage = ' must be a float number';
+
+    /**
+     * @param $fieldName
+     * @param $val
+     * @param $validator
+     * @return bool
+     */
     public function validate($fieldName, $val, $validator)
     {
         return is_float($val);
