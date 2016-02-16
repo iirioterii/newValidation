@@ -3,6 +3,8 @@
 namespace Rioter\Validation;
 
 
+use SebastianBergmann\GlobalState\RuntimeException;
+
 class Validator
 {
 
@@ -74,13 +76,17 @@ class Validator
      * @return $this
      */
     public function addFunc($fieldName, $function) {
-        if(!is_callable($function)) return $this;
+        if (!is_callable($function)) {
+            throw new \Exception('Function is not callable');
+        };
+
         if(!isset($this->functions[$fieldName])) $this->functions[$fieldName] = [];
         $this->functions[$fieldName][] = $function;
         return $this;
     }
 
     /**
+     *
      * Add rule for fieldName
      *
      * @param $fieldName
@@ -89,7 +95,11 @@ class Validator
      */
     public function addRule($fieldName, $rule)
     {
-        if(!isset($this->rules[$fieldName]))
+        if (!$rule instanceof Rules\AbstractRule) {
+            throw new \Exception('Check rule instance');
+        }
+
+        if (!isset($this->rules[$fieldName]))
            $this->rules[$fieldName] = [];
             $this->rules[$fieldName][] = $rule;
         return $this;
@@ -128,11 +138,11 @@ class Validator
      * @return array
      */
     private function applyFunctions(array $data) {
-        if(empty($this->functions)) return $data;
-        foreach($this->functions as $fieldName => $functions) {
+        if (empty($this->functions)) return $data;
+        foreach ($this->functions as $fieldName => $functions) {
             if(!isset($data[$fieldName])) continue;
             $value = $data[$fieldName];
-            foreach($functions as $function) {
+            foreach ($functions as $function) {
                 $value = call_user_func($function, $value);
             }
             $data[$fieldName] = $value;
@@ -149,7 +159,7 @@ class Validator
      */
     public function getData($fieldName = null, $default = null)
     {
-        if($fieldName === null) return $this->data;
+        if ($fieldName === null) return $this->data;
         return array_key_exists($fieldName, $this->data) ? $this->data[$fieldName] : $default;
     }
 
@@ -169,7 +179,7 @@ class Validator
     public function getErrorsList()
     {
         echo '<ul>';
-        foreach($this->errors as $fieldName => $errorsArray) {
+        foreach ($this->errors as $fieldName => $errorsArray) {
             foreach($errorsArray as $error){
                 echo '<li>' . $error  . ';</li>';
             }
@@ -187,7 +197,7 @@ class Validator
         if(empty($this->rules)) return [];
 
         $errors = [];
-        foreach($this->rules as $fieldName => $rules) {
+        foreach ($this->rules as $fieldName => $rules) {
             if (!empty($this->exeFieldNameRules($fieldName, $rules))) {
                 $errors[$fieldName] = $this->exeFieldNameRules($fieldName, $rules);
             }
@@ -207,9 +217,9 @@ class Validator
         $errors = [];
         $val = $this->data[$fieldName];
 
-        foreach($rules as $rule) {
+        foreach ($rules as $rule) {
             list($result, $error) = $this->exeRule($fieldName, $val, $rule);
-            if($result === false){
+            if ($result === false){
                 $errors[]=$error;
             }
         }
@@ -227,7 +237,7 @@ class Validator
     private function exeRule($fieldName, $val, $rule)
     {
         $result = $rule->validate($fieldName, $val, $this);
-        if($result) {
+        if ($result) {
             return [true, null];
         } else {
             return array(false, $rule->getErrorMessage($fieldName, $val, $this)
