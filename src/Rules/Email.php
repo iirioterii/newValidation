@@ -6,15 +6,7 @@ use Egulias\EmailValidator\EmailValidator;
 
 class Email extends AbstractRule
 {
-
-    /**
-     * Email constructor.
-     * @param EmailValidator|null $emailValidator
-     */
-    public function __construct(EmailValidator $emailValidator = null)
-    {
-        $this->emailValidator = $emailValidator;
-    }
+    protected $emailValidator;
 
     /**
      * @return EmailValidator
@@ -37,8 +29,9 @@ class Email extends AbstractRule
     public function validate($fieldName, $val, $validator)
     {
         $emailValidator = $this->getEguliasEmailValidator();
+
         if (null !== $emailValidator) {
-            return $emailValidator->isValid($val);
+            return $emailValidator->isValid($val) && filter_var($val, FILTER_VALIDATE_EMAIL);
         }
         return is_string($val) && filter_var($val, FILTER_VALIDATE_EMAIL);
     }

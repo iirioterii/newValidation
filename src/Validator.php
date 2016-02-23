@@ -3,8 +3,6 @@
 namespace Rioter\Validation;
 
 
-use SebastianBergmann\GlobalState\RuntimeException;
-
 class Validator
 {
 
@@ -75,7 +73,8 @@ class Validator
      * @param $function
      * @return $this
      */
-    public function addFunc($fieldName, $function) {
+    public function addFunc($fieldName, $function)
+    {
         if (!is_callable($function)) {
             throw new \Exception('Function is not callable');
         };
@@ -124,11 +123,9 @@ class Validator
      */
     public function isValid(array $data)
     {
-
-        $this->data = $this->applyFunctions($data);
-        $this->errors = $this->exeRules();
-        return empty($this->errors);
-
+            $this->data = $this->applyFunctions($data);
+            $this->errors = $this->exeRules();
+            return empty($this->errors);
     }
 
     /**

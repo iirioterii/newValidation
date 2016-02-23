@@ -4,16 +4,14 @@
 use Rioter\Validation\Validator;
 use Rioter\Validation\Rules;
 
-error_reporting(E_ALL);
-ini_set('display_errors',true);
-ini_set('html_errors',true);
-ini_set('error_reporting',E_ALL ^ E_NOTICE);
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
 require_once '../vendor/autoload.php';
 
-$_POST = ['id'=>1, 'name' => '12', 'surname' => ' Vasya',
-    'test' => 'kd', 'email' => 'iirioterii@gmail.com', 'date' => '1958'];
-$arr =array();
+$_POST = ['id'=>1, 'name' => 'fdgd', 'surname' => ' Vasya',
+    'test' => 'kd', 'email' => 'iirioterii@gmail', 'date' => '1958'];
 
 $v = new Validator();
 $v
@@ -34,6 +32,7 @@ $v
     ->addRule('email', new Rules\Email())
     ->addRule('date', new Rules\Date('Y'))
 ;
+
 
  if($v->isValid($_POST)){
      print_r( $v->getData());
